@@ -11,17 +11,21 @@
                     <h5 class="card-header">Add New Brand</h5>
                     <div class="card-body">
                         <form  id="new_brand_form"  method="post" action="#" onsubmit="add_brand_db();return false">
-                            <div class="form-group">
+                        <div class="row">
+                            <div class="form-group col-12 py-2">
                                 <label for="brand_name">Brand Name</label>
                                 <input id="brand_name" type="text" name="brand_name" data-parsley-trigger="change" required="" placeholder="Enter brand name" autocomplete="off" class="form-control">
                             </div>
-                            <div class="form-group">
+                            <div class="form-group col-12 py-2">
                                 <label for="brand_description">Brand Description</label>
                                 <textarea id="brand_description" name="brand_description" placeholder="Brand description" autocomplete="off" class="form-control" rows="5"></textarea>
                             </div>
-                            
-                            <div class="row">
-                                <div class="col-sm-6 pl-0">
+                            <div class="form-group col-12 py-2">
+                                <label for="brand_image">Brand Image</label>
+                                <input id="brand_image" type="file" name="brand_image" class="form-control">
+                            </div>
+                          
+                                <div class="form-group col-12 d-flex justify-content-end py-2">
                                     <p class="text-right">
                                         <button class="btn btn-space btn-primary" type="submit" >Submit</button>
                                     </p>

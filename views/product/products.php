@@ -4,9 +4,12 @@
 ?>
 <div class="dashboard-wrapper">
     <div class="container" style="height:80vh;">
-        <div class="d-flex justify-content-end mt-5">
-            <div class="">
+        <div class="d-flex justify-content-evenly mt-5">
+            <div class="mx-1">
                 <a class="btn btn-primary" href="add_product.php">Add Product</a>
+            </div>
+            <div class="mx-1">
+                <a class="btn btn-primary" href="add_product_type.php">Add Product Type</a>
             </div>
         </div>
 
@@ -43,11 +46,25 @@
                                     <td><?=$count?></td>
                                     <td><?=$row['id']?> </td>
                                     <td>
-                                        <div class="m-r-10"><img src="../../assets/images/product-pic.jpg" alt="user" class="rounded" width="45"></div>
+                                        <div class="m-r-10"><img src="../../<?=$row['product_img_path']?>" alt="user" class="rounded" width="45"></div>
                                     </td>
                                     <td><?=$row['product_name']?> </td>
-                                    <td><?=$row['product_type']?> </td>
-                                    <td><?=$row['quantity']?> </td>
+                                    <td>
+                                        <?php
+                                        $prd_type_id = $row['product_type'];
+                                        $prd_type_detail=mysqli_fetch_array(mysqli_query($con,"select * from product_type where id = '$prd_type_id'"));
+                                        $prd_type_name = $prd_type_detail['product_type_title'];
+                                        echo $prd_type_name;
+                                        ?> 
+                                    </td>
+                                    <td><?php
+                                        if(empty($row['quantity'])){
+                                            echo '0';
+                                        }else{
+                                            echo $row['quantity'];
+                                        }
+                                        ?> 
+                                    </td>
                                     <td>
                                         <?php
                                         $b_id = $row['brand_id'];

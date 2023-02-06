@@ -24,7 +24,7 @@
                                 <div class="form-group col-12 col-md-6 py-2">
                                     <div>
                                         <label for="product_name">Product Type</label>
-                                        <select class="form-control">
+                                        <select class="form-control" name="product_type" id="product_type">
                                         <option value="">--Select Product Type--</option>
                                             <?php
                                             $ret=mysqli_query($con,"select * from product_type where status = '1'"); 
@@ -42,7 +42,7 @@
                                 <div class="form-group col-12 col-md-6 py-2">
                                     <div>
                                         <label for="product_name">Product Company</label>
-                                        <select class="form-control">
+                                        <select class="form-control" name="product_company" id="product_company">
                                             <option value="">--Select Product Company--</option>
                                             <?php
                                             $ret=mysqli_query($con,"select * from brand where status = '1'"); 
@@ -55,6 +55,10 @@
                                             ?>
                                         </select>
                                     </div>
+                                </div>
+                                <div class="form-group col-12 py-2">
+                                    <label for="product_image">Product Image</label>
+                                    <input id="product_image" type="file" name="product_image" class="form-control">
                                 </div>
                             <div class="form-group col-12 d-flex justify-content-end py-2">
                                 <p class="text-right">

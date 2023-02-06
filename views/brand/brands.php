@@ -40,7 +40,7 @@
                                     <td><?=$count?></td>
                                     <td><?=$row['id']?> </td>
                                     <td>
-                                        <div class="m-r-10"><img src="../../assets/images/product-pic.jpg" alt="user" class="rounded" width="45"></div>
+                                        <div class="m-r-10"><img src="../../<?=$row['brand_img_path']?>" alt="user" class="rounded" width="45"></div>
                                     </td>
                                     <td><?=$row['brand_name']?> </td>
                                     <td><?=$row['created_on']?> </td>

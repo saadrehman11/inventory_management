@@ -6,7 +6,7 @@
     <div class="container"  style="height:80vh;">
         <div class="row mt-5">
               <!-- ============================================================== -->
-              <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+              <div class="col-12">
                 <div class="card">
                     <h5 class="card-header">Add New Brand</h5>
                     <div class="card-body">

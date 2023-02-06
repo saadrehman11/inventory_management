@@ -21,13 +21,10 @@
                             <thead class="bg-light">
                                 <tr class="border-0">
                                     <th class="border-0">#</th>
+                                    <th class="border-0">Brand ID</th>
                                     <th class="border-0">Image</th>
                                     <th class="border-0">Brand Name</th>
-                                    <th class="border-0">Brand Id</th>
-                                    <th class="border-0">Quantity</th>
-                                    <th class="border-0">Price</th>
-                                    <th class="border-0">Order Time</th>
-                                    <th class="border-0">Customer</th>
+                                    <th class="border-0">Added On</th>
                                     <th class="border-0">Status</th>
                                 </tr>
                             </thead>
@@ -40,17 +37,18 @@
                             {
                                 ?>
                                 <tr>
-                                    <td>1</td>
+                                    <td><?=$count?></td>
+                                    <td><?=$row['id']?> </td>
                                     <td>
                                         <div class="m-r-10"><img src="../../assets/images/product-pic.jpg" alt="user" class="rounded" width="45"></div>
                                     </td>
-                                    <td>Product <?=$count?> </td>
-                                    <td>id000001 </td>
-                                    <td>20</td>
-                                    <td>$80.00</td>
-                                    <td>27-08-2018 01:22:12</td>
-                                    <td>Patricia J. King </td>
-                                    <td><span class="badge-dot badge-brand mr-1"></span>InTransit </td>
+                                    <td><?=$row['brand_name']?> </td>
+                                    <td><?=$row['created_on']?> </td>
+                                    <td>
+                                        <?php if ($row['status'] == '1') 
+                                        { echo '<p class="text-success">Active</p>'; } else{ echo '<p class="text-primary">Inactive</p>'; }?> 
+                                    </td>
+                                    
                                 </tr>
                                 <?php
                                 $count++; 

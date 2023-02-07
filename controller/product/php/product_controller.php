@@ -86,4 +86,58 @@ if($type=='101'){
     }
 
 }
+
+if($type=='102'){
+    $brand_id = $_POST['brand_id'];
+    echo '<label for="product_name">Select Product</label>';
+    echo '<select class="form-control" id="purchasing_product_id" name="purchasing_product_id">';
+    echo '<option value="">--Select Product--</option>';
+    
+    $ret_brand_products=mysqli_query($con,"SELECT * FROM `product` WHERE `brand_id` = '$brand_id' AND `status`='1'"); 
+    while ($ret_brand_products_row=mysqli_fetch_array($ret_brand_products)) 
+    {
+        ?>
+        <option value="<?=$ret_brand_products_row['id']?>"><?=$ret_brand_products_row['product_name']?></option>
+        <?php
+    }
+    echo '</select>';
+}
+
+if($type=='103'){
+    $product_id = $_POST['purchasing_product_id'];
+    $brand_id = $_POST['select_manufacturer'];
+    $product_quantity = $_POST['product_quantity'];
+    $per_item_price = $_POST['per_item_price'];
+    $total_price = $product_quantity*$per_item_price;
+    date_default_timezone_set('Asia/Karachi');
+    $date_and_time = date("Y-m-d H:i:s");
+    try {
+        $stmt = $pconn->prepare("INSERT INTO purchase (`product_id`, `brand_id`, `product_quantity`, `per_item_price`, `total_price`, `purchased_on`)
+        VALUES (:product_id,:brand_id, :product_quantity, :per_item_price, :total_price, :purchased_on)");
+        
+        $stmt->bindParam(':product_id', $product_id);
+        $stmt->bindParam(':brand_id', $brand_id);
+        $stmt->bindParam(':product_quantity', $product_quantity);
+        $stmt->bindParam(':per_item_price', $per_item_price);
+        $stmt->bindParam(':total_price', $total_price);
+        $stmt->bindParam(':purchased_on', $date_and_time);
+        if($stmt->execute()){
+            echo json_encode(['Status_Code'=>100,'msg'=>'Success added']);
+        }
+    }
+    catch(PDOException $e){
+        echo json_encode(['Status_Code'=>200,'msg'=>$e->getMessage()]);
+    }
+    
+}
+
+
+
+
+
+
+
+
+
+
 ?>

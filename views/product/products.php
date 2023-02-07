@@ -6,10 +6,13 @@
     <div class="container" style="height:80vh;">
         <div class="d-flex justify-content-evenly mt-5">
             <div class="mx-1">
-                <a class="btn btn-primary" href="add_product.php">Add Product</a>
+                <a class="btn btn-primary" href="add_product.php">Add New Product</a>
             </div>
             <div class="mx-1">
                 <a class="btn btn-primary" href="add_product_type.php">Add Product Type</a>
+            </div>
+            <div class="mx-1">
+                <a class="btn btn-primary" href="product_purchase.php">Add Purchase</a>
             </div>
         </div>
 
@@ -30,7 +33,7 @@
                                     <th class="border-0">Product Type</th>
                                     <th class="border-0">Quantity</th>
                                     <th class="border-0">Company Name</th>
-                                    <th class="border-0">Added On</th>
+                                    <!-- <th class="border-0">Added On</th> -->
                                     <th class="border-0">Status</th>
                                 </tr>
                             </thead>
@@ -72,7 +75,7 @@
                                         $brand_name = $brand_detail['brand_name'];
                                         echo $brand_name;?> 
                                     </td>
-                                    <td><?=$row['created_on']?> </td>
+                                    <!-- <td><?=$row['created_on']?> </td> -->
                                     <td>
                                         <?php if ($row['status'] == '1') 
                                         { echo '<p class="text-success">Active</p>'; } else{ echo '<p class="text-primary">Inactive</p>'; }?> 

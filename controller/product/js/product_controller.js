@@ -38,3 +38,37 @@ function add_product_db() {
         }
     });
 }
+
+function show_brand_products(brand_id){
+    $.ajax({
+        url: "../../controller/product/php/product_controller.php?type=102",
+        type: "POST",
+        data:  {
+            brand_id:brand_id,
+        },
+        success: function(dataResult){
+            console.log(dataResult);
+            $('#purchasing_products_div').html(dataResult);
+        }
+    });
+}
+
+function add_purchase_db(){
+    $.ajax({
+        url: "../../controller/product/php/product_controller.php?type=103",
+        type: "POST",
+        data:  new FormData(document.getElementById("product_purchase_form")),
+        contentType: false,
+        processData:false,
+        cache: false,
+        success: function(dataResult){
+            console.log(dataResult);
+            var resp = JSON.parse(dataResult);
+            if(resp.Status_Code == 100){
+                alert(resp.msg);
+            }
+            document.getElementById("product_purchase_form").reset();
+            $('#purchasing_products_div').html('');
+        }
+    });
+}

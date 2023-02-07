@@ -87,6 +87,7 @@ if($type=='101'){
 
 }
 
+// create products for specific brands
 if($type=='102'){
     $brand_id = $_POST['brand_id'];
     echo '<label for="product_name">Select Product</label>';
@@ -103,6 +104,7 @@ if($type=='102'){
     echo '</select>';
 }
 
+// add purchase
 if($type=='103'){
     $product_id = $_POST['purchasing_product_id'];
     $brand_id = $_POST['select_manufacturer'];
@@ -122,13 +124,24 @@ if($type=='103'){
         $stmt->bindParam(':total_price', $total_price);
         $stmt->bindParam(':purchased_on', $date_and_time);
         if($stmt->execute()){
-            echo json_encode(['Status_Code'=>100,'msg'=>'Success added']);
+            $check_prev_quantity = mysqli_fetch_array(mysqli_query($con,"select quantity from product where id ='$product_id'"));
+            $prev_prd_quantity = $check_prev_quantity['quantity'];
+            if(!empty($prev_prd_quantity)){
+                $total_products_available = $prev_prd_quantity + $product_quantity;
+            } else {
+                $total_products_available = $product_quantity;
+            }
+            $update_prd_quantity =mysqli_query($con, "update product set quantity='$total_products_available' where id ='$product_id'");
+            echo json_encode(['Status_Code'=>100,'msg'=>'Successfully Added']);
         }
     }
     catch(PDOException $e){
         echo json_encode(['Status_Code'=>200,'msg'=>$e->getMessage()]);
     }
-    
+}
+
+if($type=='104'){
+
 }
 
 

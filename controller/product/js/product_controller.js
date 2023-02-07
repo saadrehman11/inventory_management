@@ -69,6 +69,18 @@ function add_purchase_db(){
             }
             document.getElementById("product_purchase_form").reset();
             $('#purchasing_products_div').html('');
+            $('#total_price').html('Total: 0.00');
         }
     });
+}
+
+function calculate_total_purchase(){
+    var per_item_price = parseInt($('#per_item_price').val());
+    var total_quantity = parseInt($('#product_quantity').val());
+    
+    if(per_item_price !='' && total_quantity !=''){
+        $('#total_price').html("Total: "+(per_item_price*total_quantity)+"/-");
+    }
+    
+
 }

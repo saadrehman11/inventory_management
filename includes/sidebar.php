@@ -21,6 +21,9 @@
                              <li class="nav-item ">
                                 <a class="nav-link" href="../brand/brands.php"><i class="fa fa-fw fa-user-circle"></i>Brands</a>
                             </li>
+                             <li class="nav-item ">
+                                <a class="nav-link" href="../product/purchases.php"><i class="fa fa-fw fa-user-circle"></i>Purchase</a>
+                            </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-2" aria-controls="submenu-2"><i class="fa fa-fw fa-rocket"></i>UI Elements</a>
                                 <div id="submenu-2" class="collapse submenu" >

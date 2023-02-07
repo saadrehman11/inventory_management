@@ -38,9 +38,10 @@
                                 </div>
                                 <div class="form-group col-12 py-2">
                                     <label for="per_item_price">Per Item Price</label>
-                                    <input id="per_item_price" type="number" name="per_item_price" data-parsley-trigger="change" required="" placeholder="Enter Single Item Price" autocomplete="off" class="form-control">
+                                    <input id="per_item_price" type="number" name="per_item_price" onkeyup="calculate_total_purchase()" data-parsley-trigger="change" required="" placeholder="Enter Single Item Price" autocomplete="off" class="form-control">
                                 </div>
-                            <div class="form-group col-12 d-flex justify-content-end py-2">
+                            <div class="form-group col-12 d-flex justify-content-between py-2">
+                                <h4 id="total_price">Total: 0.00</h4>
                                 <p class="text-right">
                                     <button class="btn btn-space btn-primary" type="submit" >Submit</button>
                                 </p>

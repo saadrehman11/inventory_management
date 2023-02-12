@@ -6,34 +6,34 @@
     <div class="container" style="height:80vh;">
         <div class="d-flex justify-content-evenly mt-5">
             <div class="mx-1">
-                <a class="btn btn-primary" href="product_purchase.php">Add New Purchase</a>
+                <a class="btn btn-primary" href="product_sale.php">Add New Sale</a>
             </div>
         </div>
 
 
         <div class="row mt-4">
             <div class="col-12">
-            <div class="card px-5">
-                <h5 class="card-header">All Purchases</h5>
+            <div class="card p-5">
+                <h5 class="card-header">All Sales</h5>
                 <div class="card-body py-4">
                     <div class="table-responsive">
-                        <table class="table" id="purchases_table_body">
+                        <table class="table" id="sales_table_body">
                             <thead class="bg-light">
                                 <tr class="border-0">
                                     <th class="border-0">#</th>
-                                    <th class="border-0">Purchase ID</th>
+                                    <th class="border-0">Sale ID</th>
                                     <th class="border-0">Product Name</th>
                                     <th class="border-0">Brand Name</th>
                                     <th class="border-0">Quantity</th>
                                     <th class="border-0">Per Item Price</th>
                                     <th class="border-0">Total Price</th>
-                                    <th class="border-0">Puchased On</th>
+                                    <th class="border-0">Sale On</th>
                                 </tr>
                             </thead>
                             <tbody>
 
                             <?php
-                            $ret=mysqli_query($con,"SELECT * FROM `purchase` WHERE `status` = '1' ORDER BY `purchased_on` DESC"); 
+                            $ret=mysqli_query($con,"SELECT * FROM `sale` WHERE `status` = '1' ORDER BY `created_on` DESC"); 
                             $count=1;
                             while ($row=mysqli_fetch_array($ret)) 
                             {
@@ -58,10 +58,10 @@
                                         ?> 
                                     </td>
                                     <td><?php
-                                        if(empty($row['product_quantity'])){
+                                        if(empty($row['quantity'])){
                                             echo '0';
                                         }else{
-                                            echo $row['product_quantity'];
+                                            echo $row['quantity'];
                                         }
                                         ?> 
                                     </td>
@@ -84,7 +84,10 @@
                                         ?>
                                     </td>
                                     <td> 
-                                        <?=$row['purchased_on']?> 
+                                        <?=$row['sale_type']?> 
+                                    </td> 
+                                    <td> 
+                                        <?=$row['created_on']?> 
                                     </td> 
                                 </tr>
                                 <?php
@@ -121,7 +124,7 @@
     //     paging: false,
     //     searching: true,
     // });      
-    $('#purchases_table_body').DataTable({
+    $('#sales_table_body').DataTable({
 
     });
     </script>

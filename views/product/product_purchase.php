@@ -30,7 +30,7 @@
                                 </div>
                             </div>
                                 <div class="form-group col-12 col-md-6 py-2">
-                                    <div id="purchasing_products_div"></div>
+                                    <div id="products_div"></div>
                                 </div>
                                 <div class="form-group col-12 py-2">
                                     <label for="product_quantity">Product Quantity</label>
@@ -56,11 +56,9 @@
     </div>
 
 
-
 <?php
     include '../../includes/footer.php';
 ?>
-    <script src="../../assets/vendor/jquery/jquery-3.3.1.min.js"></script>
     <!-- bootstap bundle js -->
     <script src="../../assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
     <!-- slimscroll js -->

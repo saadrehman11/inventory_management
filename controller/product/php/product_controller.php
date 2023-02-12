@@ -108,8 +108,8 @@ if($type=='102'){
 if($type=='103'){
     $product_id = $_POST['purchasing_product_id'];
     $brand_id = $_POST['select_manufacturer'];
-    $product_quantity = $_POST['product_quantity'];
-    $per_item_price = $_POST['per_item_price'];
+    $product_quantity = intval($_POST['product_quantity']);
+    $per_item_price = intval($_POST['per_item_price']);
     $total_price = $product_quantity*$per_item_price;
     date_default_timezone_set('Asia/Karachi');
     $date_and_time = date("Y-m-d H:i:s");
@@ -140,8 +140,129 @@ if($type=='103'){
     }
 }
 
+// installments_form view
 if($type=='104'){
+    $sale_type = $_POST['sale_type'];
+    $per_item_price = $_POST['per_item_price'];
+    $total_quantity = $_POST['total_quantity'];
+    if ($sale_type == 'installment') {
+        ?>
+                                    <!-- Installment Form -->
+        <div class="form-group col-12 d-flex justify-content-center pt-2 "><h4>Installment Form</h4></div>
+        <div class="form-group col-12 py-2">
+            <label for="total_price_calculated">Total Calculated Price</label>
+            <input id="total_price_calculated" value="<?=($per_item_price*$total_quantity)?>" type="number" disabled class="form-control">
+        </div>
+        <div class="form-group col-12 col-md-6 py-2">
+            <label for="advance">Advance Payment</label>
+            <input id="advance" type="number" name="advance" data-parsley-trigger="change" required="" placeholder="Enter Advance Payment" autocomplete="off" class="form-control">
+        </div>
+        <div class="form-group col-12 col-md-6 py-2">
+            <label for="remaining_balance">Remaining balance</label>
+            <input id="remaining_balance" name="remaining_balance" type="number" class="form-control" required="" placeholder="Enter Remaining Balance" autocomplete="off">
+        </div>
+       <div class="form-group col-12 col-md-6 py-2">
+            <label for="no_of_installments">Number Of Installments</label>
+            <input id="no_of_installments" name="no_of_installments" type="number" class="form-control" required="" placeholder="Enter Number Of Installments" autocomplete="off">
+        </div>
+       <div class="form-group col-12 col-md-6 py-2">
+            <label for="single_installment">Single Installment(Rs)</label>
+            <input id="single_installment" name="single_installment" type="number" class="form-control" required="" placeholder="Enter Single Installment(Rs)" autocomplete="off">
+        </div>
+        <hr>
+                                    <!-- Customer Detail Form -->
+        <div class="form-group col-12 d-flex justify-content-center pt-2"><h4>Customer Detail Form</h4></div>
+   
+        <div class="form-group col-12 col-md-6 py-2">
+            <label for="customer_name">Customer Name</label>
+            <input id="customer_name" type="text" name="customer_name" data-parsley-trigger="change" required="" placeholder="Enter Customer Name" autocomplete="off" class="form-control">
+        </div>
+        <div class="form-group col-12 col-md-6 py-2">
+            <label for="customer_cnic">Customer CNIC</label>
+            <input id="customer_cnic" name="customer_cnic" type="text" class="form-control" required="" placeholder="Enter Remaining Balance" autocomplete="off">
+        </div>
+        <div class="form-group col-12 col-md-6 py-2">
+            <label for="customer_phone">Customer Phone Number</label>
+            <input id="customer_phone" name="customer_phone" type="text" class="form-control" required="" placeholder="Enter Phone Number" autocomplete="off">
+        </div>
+        <hr>
+                                <!-- Guarantor 1 Detail Form -->
+        <div class="form-group col-12 d-flex justify-content-center pt-2 "><h4>Guarantor 1 Form</h4></div>
+        
+        <div class="form-group col-12 col-md-6 py-2">
+            <label for="guarantorOne_name">Guarantor 1 Name</label>
+            <input id="guarantorOne_name" type="text" name="guarantorOne_name" data-parsley-trigger="change" required="" placeholder="Enter Guarantor 1 Name" autocomplete="off" class="form-control">
+        </div>
+        <div class="form-group col-12 col-md-6 py-2">
+            <label for="guarantorOne_cnic">Guarantor 1 CNIC</label>
+            <input id="guarantorOne_cnic" name="guarantorOne_cnic" type="text" class="form-control" required="" placeholder="Enter Guarantor 1 CNIC" autocomplete="off">
+        </div>
+        <div class="form-group col-12 col-md-6 py-2">
+            <label for="guarantorOne_phn">Guarantor 1 Phone Number</label>
+            <input id="guarantorOne_phn" name="guarantorOne_phn" type="text" class="form-control" required="" placeholder="Enter Guarantor 1 CNIC" autocomplete="off">
+        </div>
+        <hr>
+                                <!-- Guarantor 2 Detail Form -->
+        <div class="form-group col-12 d-flex justify-content-center pt-2"><h4>Guarantor 2 Form</h4></div>
+        
+        <div class="form-group col-12 col-md-6 py-2">
+            <label for="guarantorTwo_name">Guarantor 2 Name</label>
+            <input id="guarantorTwo_name" type="text" name="guarantorTwo_name" data-parsley-trigger="change" required="" placeholder="Enter Guarantor 1 Name" autocomplete="off" class="form-control">
+        </div>
+        <div class="form-group col-12 col-md-6 py-2">
+            <label for="guarantorTwo_cnic">Guarantor 2 CNIC</label>
+            <input id="guarantorTwo_cnic" name="guarantorTwo_cnic" type="text" class="form-control" required="" placeholder="Enter Guarantor 1 CNIC" autocomplete="off">
+        </div>
+        <div class="form-group col-12 col-md-6 py-2">
+            <label for="guarantorTwo_phn">Guarantor 2 Phone Number</label>
+            <input id="guarantorTwo_phn" name="guarantorTwo_phn" type="text" class="form-control" required="" placeholder="Enter Guarantor 1 CNIC" autocomplete="off">
+        </div>
 
+
+        <?php
+    } 
+
+}
+
+
+// add sale
+if($type=='105'){
+    $product_id = $_POST['purchasing_product_id'];
+    $brand_id = $_POST['select_manufacturer'];
+    $product_quantity = intval($_POST['product_quantity']);
+    $per_item_price = intval($_POST['per_item_price']);
+    $total_price = $product_quantity*$per_item_price;
+    $sale_type = $_POST['sale_type'];
+    date_default_timezone_set('Asia/Karachi');
+    $date_and_time = date("Y-m-d H:i:s");
+
+    $check_prev_quantity = mysqli_fetch_array(mysqli_query($con,"select quantity from product where id ='$product_id'"));
+    $prev_prd_quantity = $check_prev_quantity['quantity'];
+  
+    if($prev_prd_quantity >= $product_quantity){
+        $total_products_available = $prev_prd_quantity - $product_quantity;
+        try {
+            $stmt = $pconn->prepare("INSERT INTO sale ( `product_id`, `brand_id`, `quantity`, `per_item_price`, `total_price`, `sale_type`,  `created_on`)
+            VALUES (:product_id,:brand_id, :quantity, :per_item_price, :total_price, :sale_type, :created_on)");
+            
+            $stmt->bindParam(':product_id', $product_id);
+            $stmt->bindParam(':brand_id', $brand_id);
+            $stmt->bindParam(':quantity', $product_quantity);
+            $stmt->bindParam(':per_item_price', $per_item_price);
+            $stmt->bindParam(':total_price', $total_price);
+            $stmt->bindParam(':sale_type', $sale_type);
+            $stmt->bindParam(':created_on', $date_and_time);
+            if($stmt->execute()){
+                $update_prd_quantity =mysqli_query($con, "update product set quantity='$total_products_available' where id ='$product_id'");
+                echo json_encode(['Status_Code'=>100,'msg'=>'Sale Successful']);
+            }
+        }
+        catch(PDOException $e){
+            echo json_encode(['Status_Code'=>200,'msg'=>$e->getMessage()]);
+        }
+    }else{
+        echo json_encode(['status_Code'=>400,'msg'=>'Product out of stock.Only '.$prev_prd_quantity.' available']);
+    }
 }
 
 

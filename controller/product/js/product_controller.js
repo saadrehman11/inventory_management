@@ -33,7 +33,7 @@ function add_product_db() {
         processData:false,
         cache: false,
         success: function(dataResult){
-            console.log(dataResult);
+            // console.log(dataResult);
             document.getElementById("new_product_form").reset();
         }
     });
@@ -47,31 +47,40 @@ function show_brand_products(brand_id){
             brand_id:brand_id,
         },
         success: function(dataResult){
-            console.log(dataResult);
-            $('#purchasing_products_div').html(dataResult);
+            // console.log(dataResult);
+            $('#products_div').html(dataResult);
         }
     });
 }
 
 function add_purchase_db(){
-    $.ajax({
-        url: "../../controller/product/php/product_controller.php?type=103",
-        type: "POST",
-        data:  new FormData(document.getElementById("product_purchase_form")),
-        contentType: false,
-        processData:false,
-        cache: false,
-        success: function(dataResult){
-            console.log(dataResult);
-            var resp = JSON.parse(dataResult);
-            if(resp.Status_Code == 100){
-                alert(resp.msg);
+    var select_manufacturer = $('#select_manufacturer').val();
+    var purchasing_product_id = $('#purchasing_product_id').val();
+    var product_quantity = $('#product_quantity').val();
+    var per_item_price = $('#per_item_price').val();
+    if(select_manufacturer == '' || purchasing_product_id == '' || product_quantity == '' || per_item_price == '' ){
+        alert('Please fill all fields');
+    }else{
+        $.ajax({
+            url: "../../controller/product/php/product_controller.php?type=103",
+            type: "POST",
+            data:  new FormData(document.getElementById("product_purchase_form")),
+            contentType: false,
+            processData:false,
+            cache: false,
+            success: function(dataResult){
+                console.log(dataResult);
+                var resp = JSON.parse(dataResult);
+                if(resp.Status_Code == 100){
+                    alert(resp.msg);
+                }
+                document.getElementById("product_purchase_form").reset();
+                $('#products_div').html('');
+                $('#total_price').html('Grand Total: 0.00');
             }
-            document.getElementById("product_purchase_form").reset();
-            $('#purchasing_products_div').html('');
-            $('#total_price').html('Total: 0.00');
-        }
-    });
+        });
+    }
+
 }
 
 function calculate_total_purchase(){
@@ -79,8 +88,69 @@ function calculate_total_purchase(){
     var total_quantity = parseInt($('#product_quantity').val());
     
     if(per_item_price !='' && total_quantity !=''){
-        $('#total_price').html("Total: "+(per_item_price*total_quantity)+"/-");
+        $('#total_price').html("Grand Total: "+(per_item_price*total_quantity)+"/-");
     }
     
 
+}
+
+
+function payment_type_view(value){
+    // console.log("value ",value);
+    var per_item_price = parseInt($('#per_item_price').val());
+    var total_quantity = parseInt($('#product_quantity').val());
+    
+    if (value == 'installment') {
+        $('#total_price').hide();
+        $.ajax({
+            url: "../../controller/product/php/product_controller.php?type=104",
+            type: "POST",
+            data:  {
+                sale_type:value,
+                per_item_price:per_item_price,
+                total_quantity:total_quantity,
+            },
+            async:false,
+            success: function(dataResult){
+                if(value == 'installment'){
+                    $('#installment_plan_div').html(dataResult);
+                }
+            }
+        });
+    } 
+    else if(value == 'cash'){
+        $('#total_price').show();
+        $('#installment_plan_div').html('');
+    }
+}
+
+
+function add_sale_db(){
+    var select_manufacturer = $('#select_manufacturer').val();
+    var purchasing_product_id = $('#purchasing_product_id').val();
+    var product_quantity = $('#product_quantity').val();
+    var per_item_price = $('#per_item_price').val();
+    if(select_manufacturer == '' || purchasing_product_id == '' || product_quantity == '' || per_item_price == '' ){
+        alert('Please fill all fields');
+    }else{
+        $.ajax({
+            url: "../../controller/product/php/product_controller.php?type=105",
+            type: "POST",
+            data:  new FormData(document.getElementById("product_sale_form")),
+            contentType: false,
+            processData:false,
+            cache: false,
+            success: function(dataResult){
+                console.log(dataResult);
+                var resp = JSON.parse(dataResult);
+                alert(resp.msg);
+                if (resp.Status_Code == 100) {
+                    document.getElementById("product_sale_form").reset();
+                    $('#products_div').html('');
+                    $('#total_price').html('Grand Total: 0.00');
+                }
+
+            }
+        });
+    }
 }

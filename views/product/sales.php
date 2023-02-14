@@ -27,6 +27,7 @@
                                     <th class="border-0">Quantity</th>
                                     <th class="border-0">Per Item Price</th>
                                     <th class="border-0">Total Price</th>
+                                    <th class="border-0">Sale Type</th>
                                     <th class="border-0">Sale On</th>
                                 </tr>
                             </thead>
@@ -104,8 +105,6 @@
         </div>
     </div>
 
-
-    <script src="../../assets/vendor/jquery/jquery-3.3.1.min.js"></script>
 <?php
     include '../../includes/footer.php';
 ?>

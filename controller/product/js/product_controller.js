@@ -148,6 +148,7 @@ function add_sale_db(){
                     document.getElementById("product_sale_form").reset();
                     $('#products_div').html('');
                     $('#total_price').html('Grand Total: 0.00');
+                    location.reload();
                 }
 
             }

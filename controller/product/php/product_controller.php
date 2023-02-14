@@ -165,9 +165,13 @@ if($type=='104'){
             <label for="no_of_installments">Number Of Installments</label>
             <input id="no_of_installments" name="no_of_installments" type="number" class="form-control" required="" placeholder="Enter Number Of Installments" autocomplete="off">
         </div>
-       <div class="form-group col-12 col-md-6 py-2">
+        <div class="form-group col-12 col-md-6 py-2">
             <label for="single_installment">Single Installment(Rs)</label>
             <input id="single_installment" name="single_installment" type="number" class="form-control" required="" placeholder="Enter Single Installment(Rs)" autocomplete="off">
+        </div>
+        <div class="form-group col-12 col-md-6 py-2">
+            <label for="single_installment">Last Installment Month</label>
+            <input id="last_installment_month" name="last_installment_month" type="date" class="form-control" required="" placeholder="Last Installment Month" autocomplete="off">
         </div>
         <hr>
                                     <!-- Customer Detail Form -->
@@ -191,15 +195,15 @@ if($type=='104'){
         
         <div class="form-group col-12 col-md-6 py-2">
             <label for="guarantorOne_name">Guarantor 1 Name</label>
-            <input id="guarantorOne_name" type="text" name="guarantorOne_name" data-parsley-trigger="change" required="" placeholder="Enter Guarantor 1 Name" autocomplete="off" class="form-control">
+            <input id="guarantorOne_name" type="text" name="guarantorname[]" data-parsley-trigger="change" required="" placeholder="Enter Guarantor 1 Name" autocomplete="off" class="form-control">
         </div>
         <div class="form-group col-12 col-md-6 py-2">
             <label for="guarantorOne_cnic">Guarantor 1 CNIC</label>
-            <input id="guarantorOne_cnic" name="guarantorOne_cnic" type="text" class="form-control" required="" placeholder="Enter Guarantor 1 CNIC" autocomplete="off">
+            <input id="guarantorOne_cnic" name="guarantorcnic[]" type="text" class="form-control" required="" placeholder="Enter Guarantor 1 CNIC" autocomplete="off">
         </div>
         <div class="form-group col-12 col-md-6 py-2">
             <label for="guarantorOne_phn">Guarantor 1 Phone Number</label>
-            <input id="guarantorOne_phn" name="guarantorOne_phn" type="text" class="form-control" required="" placeholder="Enter Guarantor 1 CNIC" autocomplete="off">
+            <input id="guarantorOne_phn" name="guarantorphn[]" type="text" class="form-control" required="" placeholder="Enter Guarantor 1 CNIC" autocomplete="off">
         </div>
         <hr>
                                 <!-- Guarantor 2 Detail Form -->
@@ -207,15 +211,15 @@ if($type=='104'){
         
         <div class="form-group col-12 col-md-6 py-2">
             <label for="guarantorTwo_name">Guarantor 2 Name</label>
-            <input id="guarantorTwo_name" type="text" name="guarantorTwo_name" data-parsley-trigger="change" required="" placeholder="Enter Guarantor 1 Name" autocomplete="off" class="form-control">
+            <input id="guarantorTwo_name" type="text" name="guarantorname[]" data-parsley-trigger="change" required="" placeholder="Enter Guarantor 1 Name" autocomplete="off" class="form-control">
         </div>
         <div class="form-group col-12 col-md-6 py-2">
             <label for="guarantorTwo_cnic">Guarantor 2 CNIC</label>
-            <input id="guarantorTwo_cnic" name="guarantorTwo_cnic" type="text" class="form-control" required="" placeholder="Enter Guarantor 1 CNIC" autocomplete="off">
+            <input id="guarantorTwo_cnic" name="guarantorcnic[]" type="text" class="form-control" required="" placeholder="Enter Guarantor 1 CNIC" autocomplete="off">
         </div>
         <div class="form-group col-12 col-md-6 py-2">
             <label for="guarantorTwo_phn">Guarantor 2 Phone Number</label>
-            <input id="guarantorTwo_phn" name="guarantorTwo_phn" type="text" class="form-control" required="" placeholder="Enter Guarantor 1 CNIC" autocomplete="off">
+            <input id="guarantorTwo_phn" name="guarantorphn[]" type="text" class="form-control" required="" placeholder="Enter Guarantor 1 CNIC" autocomplete="off">
         </div>
 
 
@@ -227,6 +231,7 @@ if($type=='104'){
 
 // add sale
 if($type=='105'){
+
     $product_id = $_POST['purchasing_product_id'];
     $brand_id = $_POST['select_manufacturer'];
     $product_quantity = intval($_POST['product_quantity']);
@@ -238,12 +243,24 @@ if($type=='105'){
 
     $check_prev_quantity = mysqli_fetch_array(mysqli_query($con,"select quantity from product where id ='$product_id'"));
     $prev_prd_quantity = $check_prev_quantity['quantity'];
-  
+    
     if($prev_prd_quantity >= $product_quantity){
         $total_products_available = $prev_prd_quantity - $product_quantity;
         try {
-            $stmt = $pconn->prepare("INSERT INTO sale ( `product_id`, `brand_id`, `quantity`, `per_item_price`, `total_price`, `sale_type`,  `created_on`)
-            VALUES (:product_id,:brand_id, :quantity, :per_item_price, :total_price, :sale_type, :created_on)");
+            if($sale_type == 'installment'){
+                $advance = $_POST['advance'];
+                $remaining_balance = $_POST['remaining_balance'];
+                $no_of_installments = $_POST['no_of_installments'];
+                $single_installment = $_POST['single_installment'];
+                $last_installment_month = $_POST['last_installment_month'];
+                
+                $stmt = $pconn->prepare("INSERT INTO sale ( `product_id`, `brand_id`, `quantity`, `per_item_price`, `total_price`, `sale_type`, `advance`, `remaining_balance`, `no_of_installments`, `single_installment`, `last_installment_month`,  `created_on`)
+                VALUES (:product_id,:brand_id, :quantity, :per_item_price, :total_price, :sale_type, :advance, :remaining_balance, :no_of_installments, :single_installment, :last_installment_month, :created_on)");
+            
+            }else{
+                $stmt = $pconn->prepare("INSERT INTO sale ( `product_id`, `brand_id`, `quantity`, `per_item_price`, `total_price`, `sale_type`,  `created_on`)
+                VALUES (:product_id,:brand_id, :quantity, :per_item_price, :total_price, :sale_type, :created_on)");
+            }
             
             $stmt->bindParam(':product_id', $product_id);
             $stmt->bindParam(':brand_id', $brand_id);
@@ -251,9 +268,37 @@ if($type=='105'){
             $stmt->bindParam(':per_item_price', $per_item_price);
             $stmt->bindParam(':total_price', $total_price);
             $stmt->bindParam(':sale_type', $sale_type);
+            
+            if($sale_type == 'installment'){
+                $stmt->bindParam(':advance', $advance);
+                $stmt->bindParam(':remaining_balance', $remaining_balance);
+                $stmt->bindParam(':no_of_installments', $no_of_installments);
+                $stmt->bindParam(':single_installment', $single_installment);
+                $stmt->bindParam(':last_installment_month', $last_installment_month);
+            }   
+
             $stmt->bindParam(':created_on', $date_and_time);
             if($stmt->execute()){
+                $id = $pconn->lastInsertId();
                 $update_prd_quantity =mysqli_query($con, "update product set quantity='$total_products_available' where id ='$product_id'");
+                
+                if($sale_type == 'installment'){
+
+                    $customer_name = $_POST['customer_name'];
+                    $customer_cnic = $_POST['customer_cnic'];
+                    $customer_phone = $_POST['customer_phone'];
+                    $addCustomer=mysqli_query($con, "INSERT INTO customer(customer_name,customer_phone,cnic,sale_id,created_on) 
+                    values('$customer_name','$customer_phone','$customer_cnic','$id','$date_and_time')");
+                    
+                    $guarantorname = $_POST['guarantorname'];
+                    $guarantorcnic = $_POST['guarantorcnic'];
+                    $guarantorphn = $_POST['guarantorphn'];
+                    for ($i=0; $i<sizeof($guarantorname); $i++) {
+                        $addGuarantor=mysqli_query($con, "INSERT INTO guarantor(guarantor_name,guarantor_phone,guarantor_cnic,sale_id,created_on) 
+                        values('$guarantorname[$i]','$guarantorphn[$i]','$guarantorcnic[$i]','$id','$date_and_time')");
+                    }
+                }
+                
                 echo json_encode(['Status_Code'=>100,'msg'=>'Sale Successful']);
             }
         }

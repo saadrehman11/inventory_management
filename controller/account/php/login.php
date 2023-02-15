@@ -3,7 +3,8 @@ include '../../../includes/dbconnection.php';
 $type= $_REQUEST['type'];
 
 if($type=='100'){
-
+    $url = "http://" . $_SERVER['SERVER_NAME']."/projects/admin_panels/inventory_management//views/" ; 
+  
     $email = $_POST['email'];
     $password = $_POST['password'];
 
@@ -20,7 +21,8 @@ if($type=='100'){
         // If the password is correct, create a session and redirect the user to the dashboard
         session_start();
         $_SESSION['email'] = $email;
-        // header('Location: dashboard.php');
+        
+        // header('Location: dashboard/dashboard.php' );
         echo json_encode(['status_Code'=>100]);
     } else {
         // If the password is incorrect, display an error message

@@ -32,7 +32,6 @@
 <?php
     include '../../includes/footer.php';
 ?>
-    <script src="../../assets/vendor/jquery/jquery-3.3.1.min.js"></script>
     <!-- bootstap bundle js -->
     <script src="../../assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
     <!-- slimscroll js -->

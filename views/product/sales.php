@@ -3,7 +3,7 @@
     include '../../includes/sidebar.php';
 ?>
 <div class="dashboard-wrapper">
-    <div class="container" style="height:80vh;">
+    <div class="container-fluid">
         <div class="d-flex justify-content-evenly mt-5">
             <div class="mx-1">
                 <a class="btn btn-primary" href="product_sale.php">Add New Sale</a>
@@ -28,6 +28,7 @@
                                     <th class="border-0">Per Item Price</th>
                                     <th class="border-0">Total Price</th>
                                     <th class="border-0">Sale Type</th>
+                                    <th class="border-0">Customer Name</th>
                                     <th class="border-0">Sale On</th>
                                 </tr>
                             </thead>
@@ -38,6 +39,7 @@
                             $count=1;
                             while ($row=mysqli_fetch_array($ret)) 
                             {
+                                $sale_id = $row['id'];
                                 ?>
                                 <tr>
                                     <td><?=$count?></td>
@@ -86,6 +88,18 @@
                                     </td>
                                     <td> 
                                         <?=$row['sale_type']?> 
+                                    </td> 
+                                    <td> 
+                                    <?php
+                                        $customer_detail_count=mysqli_num_rows(mysqli_query($con,"SELECT * FROM `customer` WHERE `sale_id` = '$sale_id'"));
+                                        if($customer_detail_count ==0){
+                                            echo 'Not Available';
+                                        }else{
+                                            $customer_detail=mysqli_fetch_array(mysqli_query($con,"SELECT * FROM `customer` WHERE `sale_id` = '$sale_id'"));
+                                            $customer_name = $customer_detail['customer_name'];
+                                            echo $customer_name;
+                                        }
+                                        ?> 
                                     </td> 
                                     <td> 
                                         <?=$row['created_on']?> 

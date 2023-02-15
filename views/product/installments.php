@@ -3,14 +3,14 @@
     include '../../includes/sidebar.php';
 ?>
 <div class="dashboard-wrapper">
-    <div class="container"  style="height:80vh;">
+    <div class="container-fluid" >
     <div class="row mt-4">
             <div class="col-12">
             <div class="card">
-                <h5 class="card-header">All Products</h5>
+                <h5 class="card-header">All Installments</h5>
                 <div class="card-body p-0">
-                    <div class="table-responsive">
-                        <table class="table">
+                    <div class="table-responsive p-2">
+                        <table class="table" id="all_installments_table">
                             <thead class="bg-light">
                                 <tr class="border-0">
                                     <th class="border-0">#</th>
@@ -19,9 +19,10 @@
                                     <th class="border-0">Product Type</th>
                                     <th class="border-0">Quantity</th>
                                     <th class="border-0">Company Name</th>
+                                    <th class="border-0">Customer Name</th>
                                     <th class="border-0">No. of Installments</th>
                                     <th class="border-0">Sale Date</th>
-                                    <th class="border-0">Last Installment Month</th>
+                                    <th class="border-0">Last Date</th>
                                     <th class="border-0">Status</th>
                                 </tr>
                             </thead>
@@ -60,6 +61,7 @@
                                         }
                                         ?> 
                                     </td>
+                                    
                                     <td>
                                         <?php
                                         $b_id = $row['brand_id'];
@@ -69,8 +71,12 @@
                                     </td>
                                     <td>
                                         <?php
-                                        echo $row['no_of_installments'];
-                                        ?>
+                                        $customer_detail=mysqli_fetch_array(mysqli_query($con,"SELECT * FROM `customer` WHERE `sale_id` = '$sale_id'"));
+                                        $customer_name = $customer_detail['customer_name'];
+                                        echo $customer_name;?> 
+                                    </td>
+                                    <td>
+                                        <a href="#" class="btn btn-primary" data-toggle="modal"  type="button" onclick="load_all_installments(<?=$sale_id?>)" data-target="#all_installments"><?=$row['no_of_installments']?></a>
                                     </td>
                                     <td><?=$row['created_on']?> </td>
                                     <td>
@@ -80,11 +86,15 @@
                                     </td>
                                     
                                     <td>
-                                        <?php if ($row['status'] == '1') 
-                                        { echo '<p class="text-success">Active</p>'; } else{ echo '<p class="text-primary">Inactive</p>'; }?> 
+                                        <?php
+                                        $check_installments = mysqli_num_rows(mysqli_query($con,"SELECT * FROM `installment` WHERE `sale_id` = '$sale_id' AND `status` = 0"));
+
+                                        if ($check_installments == 0) 
+                                        { echo '<p class="text-success">Completed</p>'; } else{ echo '<p class="text-primary">Ongoing</p>'; }?> 
                                     </td>
                                     
                                 </tr>
+                             
                                 <?php
                                 $count++; 
                             }
@@ -100,7 +110,43 @@
     </div>
 
 
+<!-- Modal -->
+<div class="modal fade" id="all_installments" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">All Installments</h5>
+                <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </a>
+            </div>
+            <div class="modal-body" id="installment_modal_div">
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-secondary" data-dismiss="modal">Close</a>
+            </div>
+        </div>
+    </div>
+</div>
 
 <?php
     include '../../includes/footer.php';
 ?>
+   <!-- bootstap bundle js -->
+   <script src="../../assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+    <!-- slimscroll js -->
+    <script src="../../assets/vendor/slimscroll/jquery.slimscroll.js"></script>
+
+    <script src="../../controller/product/js/product_controller.js"></script>
+<script>
+    //      $('#purchases_table_body').DataTable({
+    //     scrollY: '480px',
+    //      scrollX: true,
+    //     // scrollCollapse: true,
+    //     paging: false,
+    //     searching: true,
+    // });      
+    $('#all_installments_table').DataTable({
+
+    });
+    </script>

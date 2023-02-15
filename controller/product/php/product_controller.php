@@ -211,15 +211,15 @@ if($type=='104'){
         
         <div class="form-group col-12 col-md-6 py-2">
             <label for="guarantorTwo_name">Guarantor 2 Name</label>
-            <input id="guarantorTwo_name" type="text" name="guarantorname[]" data-parsley-trigger="change" required="" placeholder="Enter Guarantor 1 Name" autocomplete="off" class="form-control">
+            <input id="guarantorTwo_name" type="text" name="guarantorname[]" data-parsley-trigger="change" required="" placeholder="Enter Guarantor 2 Name" autocomplete="off" class="form-control">
         </div>
         <div class="form-group col-12 col-md-6 py-2">
             <label for="guarantorTwo_cnic">Guarantor 2 CNIC</label>
-            <input id="guarantorTwo_cnic" name="guarantorcnic[]" type="text" class="form-control" required="" placeholder="Enter Guarantor 1 CNIC" autocomplete="off">
+            <input id="guarantorTwo_cnic" name="guarantorcnic[]" type="text" class="form-control" required="" placeholder="Enter Guarantor 2 CNIC" autocomplete="off">
         </div>
         <div class="form-group col-12 col-md-6 py-2">
             <label for="guarantorTwo_phn">Guarantor 2 Phone Number</label>
-            <input id="guarantorTwo_phn" name="guarantorphn[]" type="text" class="form-control" required="" placeholder="Enter Guarantor 1 CNIC" autocomplete="off">
+            <input id="guarantorTwo_phn" name="guarantorphn[]" type="text" class="form-control" required="" placeholder="Enter Guarantor 2 CNIC" autocomplete="off">
         </div>
 
 
@@ -297,6 +297,24 @@ if($type=='105'){
                         $addGuarantor=mysqli_query($con, "INSERT INTO guarantor(guarantor_name,guarantor_phone,guarantor_cnic,sale_id,created_on) 
                         values('$guarantorname[$i]','$guarantorphn[$i]','$guarantorcnic[$i]','$id','$date_and_time')");
                     }
+                    $monthsAhead = $no_of_installments; 
+
+                    $currentDate = new DateTime();
+                    $currentDate->modify('first day of next month'); // move to the first day of next month
+                    $endDate = (new DateTime())->modify('+' . $monthsAhead . ' months');
+
+                    $interval = DateInterval::createFromDateString('1 month');
+                    $dateRange = new DatePeriod($currentDate, $interval, $endDate);
+
+                    $months = array();
+                    $j = 1;    
+                    foreach ($dateRange as $date) {
+                        $formattedDate = $date->format('Y-m-d');
+                        $months[] = $formattedDate;
+                        $addimage=mysqli_query($con, "INSERT INTO `installment`( `sale_id`, `sequence`, `month`, `created_on`) VALUES ('$id','$j','$formattedDate','$date_and_time')");
+                        $j++;
+                    }
+                    
                 }
                 
                 echo json_encode(['Status_Code'=>100,'msg'=>'Sale Successful']);
@@ -311,7 +329,74 @@ if($type=='105'){
 }
 
 
+if($type=='106'){
+    $sale_id = $_POST['sale_id'];
+    ?>
+    <table class="table">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Months</th>
+      <th>Status</th>
+      <th>Action</th>
+    </tr>
+   </thead>
+   <tbody>
 
+    <?php
+    $counter = 1;
+    $ret=mysqli_query($con,"SELECT * FROM `installment` WHERE `sale_id` = '$sale_id'"); 
+    while ($row=mysqli_fetch_array($ret)) 
+    {
+?>
+     <tr>
+       <td><?=$counter?></td>
+       <td><?=$row['month']?></td>
+       <td><div id="inst_status<?=$row['id']?>">
+       <?php
+       if($row['status']=='0'){
+        echo '<p class="text-danger" >Unpaid</p>';
+       }elseif($row['status']=='1'){
+        echo '<p class="text-success">Paid</p>';
+       }
+       ?>
+       </div>
+        </td>
+        <td><div id="btn_div<?=$row['id']?>">
+       <?php
+       if($row['status']=='0'){
+        echo '<button class="btn btn-sm btn-success" onclick="update_status('.$row['id'].',1)">Mark Paid</button>';
+       }elseif($row['status']=='1'){
+        echo '<button class="btn btn-sm btn-danger" onclick="update_status('.$row['id'].',0)">Mark UnPaid</button>';
+       }
+       ?>
+       </div>
+        </td>
+     </tr>
+<?php
+$counter++;
+    }
+    ?>
+        
+  </tbody>
+</table>
+<?php
+}
+
+
+if($type=='107'){
+    $installment_id = $_POST['installment_id'];
+    $status = $_POST['status'];
+
+    $updatequery=mysqli_query($con, "update installment set status='$status' where id='$installment_id'");
+    if($updatequery){
+        echo json_encode(['Status_Code'=>100]);
+    }
+    else{
+        json_encode(['Status_Code'=>200]);
+    }
+
+}
 
 
 

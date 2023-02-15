@@ -3,7 +3,7 @@
     include '../../includes/sidebar.php';
 ?>
 <div class="dashboard-wrapper">
-    <div class="container" style="height:80vh;">
+    <div class="container-fluid" >
         <div class="d-flex justify-content-evenly mt-5">
             <div class="mx-1">
                 <a class="btn btn-primary" href="product_purchase.php">Add New Purchase</a>
@@ -102,7 +102,6 @@
     </div>
 
 
-    <script src="../../assets/vendor/jquery/jquery-3.3.1.min.js"></script>
 <?php
     include '../../includes/footer.php';
 ?>

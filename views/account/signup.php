@@ -24,7 +24,8 @@
             <button type="submit" class="btn btn-primary">Signup</button>
           </form>
         </div>
-       
+        <div id="msg">
+        </div>
       </div>
     </div>
   </div>

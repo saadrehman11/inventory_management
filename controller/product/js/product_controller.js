@@ -155,3 +155,41 @@ function add_sale_db(){
         });
     }
 }
+
+function load_all_installments(sale_id){
+    $.ajax({
+        url: "../../controller/product/php/product_controller.php?",
+        type: "POST",
+        data:  {
+            sale_id:sale_id,
+            type:106,
+        },
+        async:false,
+        success: function(dataResult){
+            $('#installment_modal_div').html(dataResult);
+        }
+    });
+}
+
+function update_status(installment_id,status){
+    $.ajax({
+        url: "../../controller/product/php/product_controller.php?",
+        type: "POST",
+        data:  {
+            installment_id:installment_id,
+            status:status,
+            type:107,
+        },
+        async:false,
+        success: function(dataResult){
+            console.log(dataResult)
+            if(status==1){
+                $('#inst_status'+installment_id).html('<p class="text-success" >Paid</p>');
+                $('#btn_div'+installment_id).html('<button class="btn btn-sm btn-danger" onclick="update_status('+installment_id+',0)">Mark UnPaid</button>');
+            }else{
+                $('#inst_status'+installment_id).html('<p class="text-danger" >UnPaid</p>');
+                $('#btn_div'+installment_id).html('<button class="btn btn-sm btn-success" onclick="update_status('+installment_id+',1)">Mark Paid</button>');
+            }
+        }
+    });
+}

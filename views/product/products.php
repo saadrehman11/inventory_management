@@ -3,7 +3,7 @@
     include '../../includes/sidebar.php';
 ?>
 <div class="dashboard-wrapper">
-    <div class="container" style="height:80vh;">
+    <div class="container-fluid">
         <div class="d-flex justify-content-evenly mt-5">
             <div class="mx-1">
                 <a class="btn btn-primary" href="add_product.php">Add New Product</a>
@@ -22,8 +22,8 @@
             <div class="card">
                 <h5 class="card-header">All Products</h5>
                 <div class="card-body p-0">
-                    <div class="table-responsive">
-                        <table class="table">
+                    <div class="table-responsive p-2">
+                        <table class="table" id="all_products_table">
                             <thead class="bg-light">
                                 <tr class="border-0">
                                     <th class="border-0">#</th>
@@ -82,6 +82,7 @@
                                     </td>
                                     
                                 </tr>
+                     
                                 <?php
                                 $count++; 
                             }
@@ -101,8 +102,20 @@
 <?php
     include '../../includes/footer.php';
 ?>
-    <script src="../../assets/vendor/jquery/jquery-3.3.1.min.js"></script>
     <!-- bootstap bundle js -->
     <script src="../../assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
     <!-- slimscroll js -->
     <script src="../../assets/vendor/slimscroll/jquery.slimscroll.js"></script>
+
+    <script>
+    //      $('#purchases_table_body').DataTable({
+    //     scrollY: '480px',
+    //      scrollX: true,
+    //     // scrollCollapse: true,
+    //     paging: false,
+    //     searching: true,
+    // });      
+    $('#all_products_table').DataTable({
+
+    });
+    </script>

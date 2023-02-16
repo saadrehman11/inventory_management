@@ -2,7 +2,7 @@
     include '../../includes/header.php';
     // include '../../includes/sidebar.php';
 ?>
-<div class="dashboard-wrapper">
+<div class="dashboard-wrapper ml-0">
 <div class="container">
   <div class="row justify-content-center mt-5">
     <div class="col-md-6">

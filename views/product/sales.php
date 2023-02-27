@@ -1,6 +1,10 @@
 <?php
+
     include '../../includes/header.php';
     include '../../includes/sidebar.php';
+    if($user_email != 'fazalsaid492@gmail.com' && $user_email != 'admin@admin.com'){
+        header("location: product_sale.php");
+    }
 ?>
 <div class="dashboard-wrapper">
     <div class="container-fluid">
@@ -29,7 +33,9 @@
                                     <th class="border-0">Total Price</th>
                                     <th class="border-0">Sale Type</th>
                                     <th class="border-0">Customer Name</th>
+                                    <th class="border-0">Customer Number</th>
                                     <th class="border-0">Sale On</th>
+                                    <th class="border-0">Delete</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -97,12 +103,19 @@
                                         }else{
                                             $customer_detail=mysqli_fetch_array(mysqli_query($con,"SELECT * FROM `customer` WHERE `sale_id` = '$sale_id'"));
                                             $customer_name = $customer_detail['customer_name'];
+                                            $customer_phone = $customer_detail['customer_phone'];
                                             echo $customer_name;
                                         }
                                         ?> 
                                     </td> 
+                                    <td>
+                                        <?=$customer_phone;?>
+                                    </td>
                                     <td> 
                                         <?=$row['created_on']?> 
+                                    </td>  
+                                    <td> 
+                                        <button class="btn btn-danger" onclick="delete_sale('<?=$row['id']?>')">Delete</button>
                                     </td> 
                                 </tr>
                                 <?php
@@ -130,13 +143,30 @@
 
 
     <script>
-    //      $('#purchases_table_body').DataTable({
-    //     scrollY: '480px',
-    //      scrollX: true,
-    //     // scrollCollapse: true,
-    //     paging: false,
-    //     searching: true,
-    // });      
+    
+        function delete_sale(sale_id){
+        let text = "Are you sure you want to delete?";
+        if (confirm(text) == true) {
+            $.ajax({
+                url: "../../controller/product/php/product_controller.php?",
+                type: "POST",
+                data:  {
+                    sale_id:sale_id,
+                    type:110,
+                },
+                success: function(dataResult){
+                    console.log(dataResult)
+                    var re = JSON.parse(dataResult);
+                    if(re.Status_Code == 100){
+                        location.reload();
+                    }
+                }
+            });
+        } 
+        else {
+        }
+    }
+         
     $('#sales_table_body').DataTable({
 
     });

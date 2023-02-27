@@ -33,8 +33,8 @@
                                     <th class="border-0">Product Type</th>
                                     <th class="border-0">Quantity</th>
                                     <th class="border-0">Company Name</th>
-                                    <!-- <th class="border-0">Added On</th> -->
-                                    <th class="border-0">Status</th>
+                                     <th class="border-0">Image Upload</th> 
+                                    <th class="border-0">Delete</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -76,9 +76,14 @@
                                         echo $brand_name;?> 
                                     </td>
                                     <!-- <td><?=$row['created_on']?> </td> -->
+                                    <td> 
+                                        <form id="product_img_form<?=$row['id']?>">
+                                            <input type="file" name="img" id="img" accept="image/x-png,image/gif,image/jpeg"/>
+                                        </form>
+                                        <button type="button" class="btn btn-info btn-sm" onclick="upload_image('<?=$row['id']?>')">Upload Image</button>
+                                    </td> 
                                     <td>
-                                        <?php if ($row['status'] == '1') 
-                                        { echo '<p class="text-success">Active</p>'; } else{ echo '<p class="text-primary">Inactive</p>'; }?> 
+                                        <button class="btn btn-danger" onclick="delete_product('<?=$row['id']?>')">Delete</button>
                                     </td>
                                     
                                 </tr>
@@ -108,14 +113,56 @@
     <script src="../../assets/vendor/slimscroll/jquery.slimscroll.js"></script>
 
     <script>
-    //      $('#purchases_table_body').DataTable({
-    //     scrollY: '480px',
-    //      scrollX: true,
-    //     // scrollCollapse: true,
-    //     paging: false,
-    //     searching: true,
-    // });      
+    
+    function upload_image(product_id){
+        f_name = "product_img_form"+product_id;
+        var formdata = new FormData(document.getElementById(f_name))
+        formdata.append('product_id',product_id)
+        $.ajax({
+            url: "../../controller/product/php/product_controller.php?type=111",
+            type: "POST",
+            data: formdata,
+            contentType: false,
+            processData:false,
+            cache: false,
+            success: function(dataResult){
+              console.log(dataResult);
+              var res = JSON.parse(dataResult);
+            if(res.Status_Code == 100){
+                alert('Success');
+                location.reload();
+            }
+            }
+        }); 
+        
+    }
+    
+       
     $('#all_products_table').DataTable({
 
     });
+    
+    function delete_product(product_id){
+    let text = "Are you sure you want to delete?";
+    if (confirm(text) == true) {
+        $.ajax({
+            url: "../../controller/product/php/product_controller.php?",
+            type: "POST",
+            data:  {
+                product_id:product_id,
+                type:108,
+            },
+            success: function(dataResult){
+                // console.log(dataResult)
+                var re = JSON.parse(dataResult);
+                if(re.Status_Code == 100){
+                    location.reload();
+                }
+            }
+        });
+    } 
+    else {
+    }
+
+}
     </script>

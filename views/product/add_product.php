@@ -24,7 +24,7 @@
                                 <div class="form-group col-12 col-md-6 py-2">
                                     <div>
                                         <label for="product_name">Product Type</label>
-                                        <select class="form-control" name="product_type" id="product_type">
+                                        <select class="form-control chosen-select" name="product_type" id="product_type">
                                         <option value="">--Select Product Type--</option>
                                             <?php
                                             $ret=mysqli_query($con,"select * from product_type where status = '1'"); 
@@ -42,7 +42,7 @@
                                 <div class="form-group col-12 col-md-6 py-2">
                                     <div>
                                         <label for="product_name">Product Company</label>
-                                        <select class="form-control" name="product_company" id="product_company">
+                                        <select class="form-control chosen-select" name="product_company" id="product_company">
                                             <option value="">--Select Product Company--</option>
                                             <?php
                                             $ret=mysqli_query($con,"select * from brand where status = '1'"); 
@@ -79,10 +79,14 @@
 <?php
     include '../../includes/footer.php';
 ?>
-    <script src="../../assets/vendor/jquery/jquery-3.3.1.min.js"></script>
     <!-- bootstap bundle js -->
     <script src="../../assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
     <!-- slimscroll js -->
     <script src="../../assets/vendor/slimscroll/jquery.slimscroll.js"></script>
 
     <script src="../../controller/product/js/product_controller.js"></script>
+    <script>
+         $(".chosen-select").chosen({
+              no_results_text: "Oops, nothing found!"
+            })
+    </script>

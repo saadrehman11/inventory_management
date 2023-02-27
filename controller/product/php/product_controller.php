@@ -175,21 +175,21 @@ if($type=='104'){
         </div>
         <hr>
                                     <!-- Customer Detail Form -->
-        <div class="form-group col-12 d-flex justify-content-center pt-2"><h4>Customer Detail Form</h4></div>
+        <!--<div class="form-group col-12 d-flex justify-content-center pt-2"><h4>Customer Detail Form</h4></div>-->
    
-        <div class="form-group col-12 col-md-6 py-2">
-            <label for="customer_name">Customer Name</label>
-            <input id="customer_name" type="text" name="customer_name" data-parsley-trigger="change" required="" placeholder="Enter Customer Name" autocomplete="off" class="form-control">
-        </div>
-        <div class="form-group col-12 col-md-6 py-2">
-            <label for="customer_cnic">Customer CNIC</label>
-            <input id="customer_cnic" name="customer_cnic" type="text" class="form-control" required="" placeholder="Enter Remaining Balance" autocomplete="off">
-        </div>
-        <div class="form-group col-12 col-md-6 py-2">
-            <label for="customer_phone">Customer Phone Number</label>
-            <input id="customer_phone" name="customer_phone" type="text" class="form-control" required="" placeholder="Enter Phone Number" autocomplete="off">
-        </div>
-        <hr>
+        <!--<div class="form-group col-12 col-md-6 py-2">-->
+        <!--    <label for="customer_name">Customer Name</label>-->
+        <!--    <input id="customer_name" type="text" name="customer_name" data-parsley-trigger="change" required="" placeholder="Enter Customer Name" autocomplete="off" class="form-control">-->
+        <!--</div>-->
+        <!--<div class="form-group col-12 col-md-6 py-2">-->
+        <!--    <label for="customer_cnic">Customer CNIC</label>-->
+        <!--    <input id="customer_cnic" name="customer_cnic" type="text" class="form-control"  placeholder="Enter Remaining Balance" autocomplete="off">-->
+        <!--</div>-->
+        <!--<div class="form-group col-12 col-md-6 py-2">-->
+        <!--    <label for="customer_phone">Customer Phone Number</label>-->
+        <!--    <input id="customer_phone" name="customer_phone" type="text" class="form-control" required="" placeholder="Enter Phone Number" autocomplete="off">-->
+        <!--</div>-->
+        <!--<hr>-->
                                 <!-- Guarantor 1 Detail Form -->
         <div class="form-group col-12 d-flex justify-content-center pt-2 "><h4>Guarantor 1 Form</h4></div>
         
@@ -282,13 +282,18 @@ if($type=='105'){
                 $id = $pconn->lastInsertId();
                 $update_prd_quantity =mysqli_query($con, "update product set quantity='$total_products_available' where id ='$product_id'");
                 
-                if($sale_type == 'installment'){
-
-                    $customer_name = $_POST['customer_name'];
+                $customer_name = $_POST['customer_name'];
                     $customer_cnic = $_POST['customer_cnic'];
                     $customer_phone = $_POST['customer_phone'];
                     $addCustomer=mysqli_query($con, "INSERT INTO customer(customer_name,customer_phone,cnic,sale_id,created_on) 
                     values('$customer_name','$customer_phone','$customer_cnic','$id','$date_and_time')");
+                if($sale_type == 'installment'){
+
+                    // $customer_name = $_POST['customer_name'];
+                    // $customer_cnic = $_POST['customer_cnic'];
+                    // $customer_phone = $_POST['customer_phone'];
+                    // $addCustomer=mysqli_query($con, "INSERT INTO customer(customer_name,customer_phone,cnic,sale_id,created_on) 
+                    // values('$customer_name','$customer_phone','$customer_cnic','$id','$date_and_time')");
                     
                     $guarantorname = $_POST['guarantorname'];
                     $guarantorcnic = $_POST['guarantorcnic'];
@@ -317,7 +322,7 @@ if($type=='105'){
                     
                 }
                 
-                echo json_encode(['Status_Code'=>100,'msg'=>'Sale Successful']);
+                echo json_encode(['Status_Code'=>100,'msg'=>'Sale Successful','sale_id'=>$id]);
             }
         }
         catch(PDOException $e){
@@ -398,6 +403,96 @@ if($type=='107'){
 
 }
 
+// delete product
+if($type=='108'){
+    // print_r($_POST);
+    $product_id = $_POST['product_id'];
+    // die();
+    $deleteProductquery=mysqli_query($con, "DELETE FROM `product` WHERE `id` = '$product_id'");
+    if($deleteProductquery){
+        echo json_encode(['Status_Code'=>100]);
+    }
+    else{
+        json_encode(['Status_Code'=>200]);
+    }
+
+}
+
+// delete purchase
+if($type=='109'){
+    // print_r($_POST);
+    $purchase_id = $_POST['purchase_id'];
+    // die();
+    $deletePurchasequery=mysqli_query($con, "DELETE FROM `purchase` WHERE `id` = '$purchase_id'");
+    if($deletePurchasequery){
+        echo json_encode(['Status_Code'=>100]);
+    }
+    else{
+        json_encode(['Status_Code'=>200]);
+    }
+
+}
+
+
+// delete sale
+if($type=='110'){
+    // print_r($_POST);
+    $sale_id = $_POST['sale_id'];
+    // die();
+    $deleteSalequery=mysqli_query($con, "DELETE FROM `sale` WHERE `id` = '$sale_id'");
+    if($deleteSalequery){
+        echo json_encode(['Status_Code'=>100]);
+    }
+    else{
+        json_encode(['Status_Code'=>200]);
+    }
+
+}
+
+// upload image
+if($type=='111'){
+    // print_r($_FILES);
+    // print_r($_POST);
+    // die();
+    $product_id = $_POST['product_id'];
+    date_default_timezone_set('Asia/Karachi');
+    $date_time_file_name = date("Y_m_d_h_i_s");
+    if(!empty($_FILES['img']['name'])){
+        $target_dir = "../../../assets/images/products/";
+        $product_img_path = "assets/images/products/";
+        $target_file = $target_dir . basename($_FILES["img"]["name"]);
+        $uploadOk = 1;
+        $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+
+        // Allow certain file formats
+        if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+        && $imageFileType != "gif" ) {
+            $msg .= "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+            $uploadOk = 0;
+        }
+
+        // Check if $uploadOk is set to 0 by an error
+        if ($uploadOk == 0) {
+            $msg =  "Sorry, your file was not uploaded.";
+            $file_Status_Code = 200;
+        } else {
+        if (move_uploaded_file($_FILES["img"]["tmp_name"], ($target_dir.$date_time_file_name.'.'.$imageFileType))) {
+            $file_Status_Code = 100;
+            $msg .=  "The file ". htmlspecialchars( basename( $_FILES["img"]["name"])). " has been uploaded.";
+            $img_path = $product_img_path.$date_time_file_name.'.'.$imageFileType;
+            $update_path=mysqli_query($con, "UPDATE `product` SET `product_img_path`='$img_path' WHERE `id` = '$product_id'");
+            if($update_path){
+                echo json_encode(['Status_Code'=>100,'msg'=>'Success','file_Status_Code'=>$file_Status_Code,'file_msg'=>$msg]);
+            }} else {
+            $msg .=  "Sorry, there was an error uploading your file.";
+            $file_Status_Code = 200;
+        }
+        }
+    }
+    
+    
+    
+}
 
 
 

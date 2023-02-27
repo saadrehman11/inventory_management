@@ -22,6 +22,8 @@
     <link rel="stylesheet" href="../../assets/vendor/fonts/material-design-iconic-font/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="../../assets/vendor/charts/c3charts/c3.css">
     <link rel="stylesheet" href="../../assets/vendor/fonts/flag-icon-css/flag-icon.min.css">
+  
+    <link href="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.min.css" rel="stylesheet"/>
     <title>Inventory Management System</title>
 </head>
 <?php 
@@ -30,6 +32,7 @@ session_start();
 // die();
 // get the user's email address from the session variable
 $user_email = $_SESSION['email'];?>
+
 
 
 <body>

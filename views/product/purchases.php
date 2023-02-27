@@ -28,6 +28,7 @@
                                     <th class="border-0">Per Item Price</th>
                                     <th class="border-0">Total Price</th>
                                     <th class="border-0">Puchased On</th>
+                                    <th class="border-0">Delete</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -86,6 +87,9 @@
                                     <td> 
                                         <?=$row['purchased_on']?> 
                                     </td> 
+                                    <td> 
+                                       <button class="btn btn-danger" onclick="delete_purchase('<?=$row['id']?>')">Delete</button> 
+                                    </td> 
                                 </tr>
                                 <?php
                                 $count++; 
@@ -113,13 +117,30 @@
 
 
     <script>
-    //      $('#purchases_table_body').DataTable({
-    //     scrollY: '480px',
-    //      scrollX: true,
-    //     // scrollCollapse: true,
-    //     paging: false,
-    //     searching: true,
-    // });      
+    
+    function delete_purchase(purchase_id){
+        let text = "Are you sure you want to delete?";
+        if (confirm(text) == true) {
+            $.ajax({
+                url: "../../controller/product/php/product_controller.php?",
+                type: "POST",
+                data:  {
+                    purchase_id:purchase_id,
+                    type:109,
+                },
+                success: function(dataResult){
+                    console.log(dataResult)
+                    var re = JSON.parse(dataResult);
+                    if(re.Status_Code == 100){
+                        location.reload();
+                    }
+                }
+            });
+        } 
+        else {
+        }
+    }
+         
     $('#purchases_table_body').DataTable({
 
     });

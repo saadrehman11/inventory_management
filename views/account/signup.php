@@ -1,7 +1,7 @@
 
 <?php
     include '../../includes/header.php';
-    include '../../includes/sidebar.php';
+    // include '../../includes/sidebar.php';
 ?>
 <div class="dashboard-wrapper">
 <div class="container">

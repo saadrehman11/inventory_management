@@ -1,6 +1,15 @@
 <?php
+
  include '../../includes/header.php';
  include '../../includes/sidebar.php';
+if($user_email != 'fazalsaid492@gmail.com' && $user_email != 'admin@admin.com'){
+    
+    $root = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . '/';
+    // echo $root."views/product/product_sale.php";
+    
+    echo "<script>window.top.location='".$root."views/product/product_sale.php'</script>";
+    // header("location: ".$root."views/product/product_sale.php", true);
+}
  ?>
         <!-- ============================================================== -->
         <!-- wrapper  -->

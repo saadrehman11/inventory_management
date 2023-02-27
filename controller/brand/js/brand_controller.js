@@ -13,7 +13,12 @@ function add_brand_db() {
         cache: false,
         success: function(dataResult){
             console.log(dataResult);
-            document.getElementById("new_brand_form").reset();
+            var r = JSON.parse(dataResult);
+            if(r.Status_Code == 100){
+                alert("Success");
+                document.getElementById("new_brand_form").reset();
+            }
+            
         }
     });
 }

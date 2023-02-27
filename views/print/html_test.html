@@ -1,0 +1,86 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+<style>
+  @media print {
+  #myForm {
+    display: none;
+  }
+
+  #receipt {
+    display: block !important;
+  }
+}
+
+</style>
+<div class="container mt-5">
+  <form id="myForm">
+    <label for="name">Name:</label>
+    <input type="text" class="form-control" id="name" name="name" required>
+
+    <label for="email">Email:</label>
+    <input type="email" class="form-control" id="email" name="email" required>
+
+    <label for="address">Address:</label>
+    <input type="text" class="form-control" id="address" name="address" required>
+
+    <button type="submit" class="btn btn-primary mt-3">Submit</button>
+  </form>
+
+  <div id="receipt" class="mt-5" style="display: none;">
+    <div class="d-flex justify-content-center"><h2 class="mb-4">Fazal Electronics</h2></div>
+    <hr>
+    <div class="row">
+      <h4>Contact Numbers: 090078601 / 090078601</h4>
+    </div>
+    <hr>
+    <div class="card p-3">
+      <div class="row">
+        <div class="col-2">
+          <p><strong>Name:</strong> <span id="receipt-name"></span></p>
+        </div>
+        <div class="col-8">
+          <p><strong>Email:</strong> <span id="receipt-email"></span></p>
+        </div>
+        <div class="col-2">
+          <p><strong>Address:</strong> <span id="receipt-address"></span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const form = document.getElementById('myForm');
+const receipt = document.getElementById('receipt');
+const receiptName = document.getElementById('receipt-name');
+const receiptEmail = document.getElementById('receipt-email');
+const receiptAddress = document.getElementById('receipt-address');
+
+form.addEventListener('submit', function(event) {
+  event.preventDefault(); // prevent form submission
+
+  const name = document.getElementById('name').value;
+  const email = document.getElementById('email').value;
+  const address = document.getElementById('address').value;
+
+  // Submit the form data to a server-side script
+  const xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      console.log(this.responseText); // log the server response
+    }
+  };
+  xhttp.open('POST', 'submit.php', true);
+  xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+  xhttp.send(`name=${name}&email=${email}&address=${address}`);
+
+  receiptName.textContent = name;
+  receiptEmail.textContent = email;
+  receiptAddress.textContent = address;
+
+  receipt.style.display = 'block';
+
+  window.print();
+});
+
+</script>

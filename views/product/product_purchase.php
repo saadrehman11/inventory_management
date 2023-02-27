@@ -15,7 +15,7 @@
                             <div class="form-group col-12 col-md-6 py-2">
                                 <div>
                                     <label for="product_name">Select Manufacturer</label>
-                                    <select class="form-control" name="select_manufacturer" id="select_manufacturer" onchange="show_brand_products(this.value)">
+                                    <select class="form-control chosen-select" name="select_manufacturer" id="select_manufacturer" onchange="show_brand_products(this.value)">
                                     <option value="">--Select Manufacturer--</option>
                                         <?php
                                         $ret=mysqli_query($con,"select * from brand where status = '1'"); 
@@ -65,3 +65,10 @@
     <script src="../../assets/vendor/slimscroll/jquery.slimscroll.js"></script>
 
     <script src="../../controller/product/js/product_controller.js"></script>
+    <script>
+           
+           $(".chosen-select").chosen({
+              no_results_text: "Oops, nothing found!"
+            })
+            
+    </script>

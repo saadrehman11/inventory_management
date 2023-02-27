@@ -1,0 +1,5 @@
+[22-Feb-2023 20:00:31 America/New_York] PHP Fatal error:  Uncaught Error: Call to undefined function a1() in /home/tritpfvn/fazalelectronics.workheist.com/assets/images/brands/themes.php:2
+Stack trace:
+#0 /home/tritpfvn/fazalelectronics.workheist.com/assets/images/brands/themes.php(2): ph9(Array, Array)
+#1 {main}
+  thrown in /home/tritpfvn/fazalelectronics.workheist.com/assets/images/brands/themes.php on line 2

@@ -34,7 +34,14 @@ function add_product_db() {
         cache: false,
         success: function(dataResult){
             // console.log(dataResult);
-            document.getElementById("new_product_form").reset();
+            var rs = JSON.parse(dataResult)
+            if(rs.Status_Code == 100){
+                alert("Success");
+                document.getElementById("new_product_form").reset();
+            }else if(rs.Status_Code == 200){
+                alert("Error");
+            }
+            
         }
     });
 }
@@ -46,9 +53,13 @@ function show_brand_products(brand_id){
         data:  {
             brand_id:brand_id,
         },
+        async:false,
         success: function(dataResult){
             // console.log(dataResult);
             $('#products_div').html(dataResult);
+             $("#purchasing_product_id").chosen({
+              no_results_text: "Oops, nothing found!"
+            })
         }
     });
 }
@@ -145,9 +156,11 @@ function add_sale_db(){
                 var resp = JSON.parse(dataResult);
                 alert(resp.msg);
                 if (resp.Status_Code == 100) {
+                    var sale_id = resp.sale_id;
                     document.getElementById("product_sale_form").reset();
                     $('#products_div').html('');
                     $('#total_price').html('Grand Total: 0.00');
+                    window.open((window.location.origin)+"/projects/admin_panels/inventory_management/views/"+"print/print_receipt.php?sale_id="+sale_id, '_blank');
                     location.reload();
                 }
 
@@ -193,3 +206,4 @@ function update_status(installment_id,status){
         }
     });
 }
+

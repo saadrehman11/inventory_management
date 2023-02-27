@@ -1,0 +1,35 @@
+[21-Feb-2023 14:13:11 America/New_York] PHP Notice:  Trying to access array offset on value of type null in /home/tritpfvn/fazalelectronics.workheist.com/views/product/sales.php on line 56
+[21-Feb-2023 14:13:21 America/New_York] PHP Notice:  Trying to access array offset on value of type null in /home/tritpfvn/fazalelectronics.workheist.com/views/product/sales.php on line 56
+[21-Feb-2023 14:14:04 America/New_York] PHP Notice:  Trying to access array offset on value of type null in /home/tritpfvn/fazalelectronics.workheist.com/views/product/sales.php on line 56
+[21-Feb-2023 14:16:10 America/New_York] PHP Notice:  Trying to access array offset on value of type null in /home/tritpfvn/fazalelectronics.workheist.com/views/product/sales.php on line 57
+[21-Feb-2023 14:16:32 America/New_York] PHP Notice:  Trying to access array offset on value of type null in /home/tritpfvn/fazalelectronics.workheist.com/views/product/sales.php on line 57
+[21-Feb-2023 14:17:32 America/New_York] PHP Notice:  Trying to access array offset on value of type null in /home/tritpfvn/fazalelectronics.workheist.com/views/product/sales.php on line 57
+[21-Feb-2023 14:18:43 America/New_York] PHP Notice:  Trying to access array offset on value of type null in /home/tritpfvn/fazalelectronics.workheist.com/views/product/sales.php on line 57
+[21-Feb-2023 14:18:59 America/New_York] PHP Notice:  Trying to access array offset on value of type null in /home/tritpfvn/fazalelectronics.workheist.com/views/product/sales.php on line 57
+[22-Feb-2023 04:25:09 America/New_York] PHP Notice:  Trying to access array offset on value of type null in /home/tritpfvn/fazalelectronics.workheist.com/views/product/sales.php on line 57
+[22-Feb-2023 04:25:09 America/New_York] PHP Notice:  Trying to access array offset on value of type null in /home/tritpfvn/fazalelectronics.workheist.com/views/product/sales.php on line 64
+[22-Feb-2023 04:27:47 America/New_York] PHP Notice:  Trying to access array offset on value of type null in /home/tritpfvn/fazalelectronics.workheist.com/views/product/purchases.php on line 50
+[22-Feb-2023 04:27:47 America/New_York] PHP Notice:  Trying to access array offset on value of type null in /home/tritpfvn/fazalelectronics.workheist.com/views/product/purchases.php on line 57
+[22-Feb-2023 04:27:47 America/New_York] PHP Notice:  Trying to access array offset on value of type null in /home/tritpfvn/fazalelectronics.workheist.com/views/product/purchases.php on line 50
+[22-Feb-2023 04:27:47 America/New_York] PHP Notice:  Trying to access array offset on value of type null in /home/tritpfvn/fazalelectronics.workheist.com/views/product/purchases.php on line 57
+[22-Feb-2023 04:28:53 America/New_York] PHP Notice:  Trying to access array offset on value of type null in /home/tritpfvn/fazalelectronics.workheist.com/views/product/purchases.php on line 50
+[22-Feb-2023 04:28:53 America/New_York] PHP Notice:  Trying to access array offset on value of type null in /home/tritpfvn/fazalelectronics.workheist.com/views/product/purchases.php on line 57
+[22-Feb-2023 04:28:53 America/New_York] PHP Notice:  Trying to access array offset on value of type null in /home/tritpfvn/fazalelectronics.workheist.com/views/product/purchases.php on line 50
+[22-Feb-2023 04:28:53 America/New_York] PHP Notice:  Trying to access array offset on value of type null in /home/tritpfvn/fazalelectronics.workheist.com/views/product/purchases.php on line 57
+[22-Feb-2023 05:37:37 America/New_York] PHP Notice:  Undefined variable: customer_phone in /home/tritpfvn/fazalelectronics.workheist.com/views/product/sales.php on line 112
+[22-Feb-2023 05:37:37 America/New_York] PHP Notice:  Undefined variable: customer_phone in /home/tritpfvn/fazalelectronics.workheist.com/views/product/sales.php on line 112
+[22-Feb-2023 05:37:37 America/New_York] PHP Notice:  Undefined variable: customer_phone in /home/tritpfvn/fazalelectronics.workheist.com/views/product/sales.php on line 112
+[22-Feb-2023 05:37:42 America/New_York] PHP Notice:  Undefined variable: customer_phone in /home/tritpfvn/fazalelectronics.workheist.com/views/product/sales.php on line 112
+[22-Feb-2023 05:37:42 America/New_York] PHP Notice:  Undefined variable: customer_phone in /home/tritpfvn/fazalelectronics.workheist.com/views/product/sales.php on line 112
+[22-Feb-2023 05:37:44 America/New_York] PHP Notice:  Undefined variable: customer_phone in /home/tritpfvn/fazalelectronics.workheist.com/views/product/sales.php on line 112
+[22-Feb-2023 05:47:09 America/New_York] PHP Notice:  Trying to access array offset on value of type null in /home/tritpfvn/fazalelectronics.workheist.com/views/product/products.php on line 75
+[22-Feb-2023 05:53:13 America/New_York] PHP Notice:  Trying to access array offset on value of type null in /home/tritpfvn/fazalelectronics.workheist.com/views/product/products.php on line 75
+[22-Feb-2023 06:00:01 America/New_York] PHP Notice:  Trying to access array offset on value of type null in /home/tritpfvn/fazalelectronics.workheist.com/views/product/products.php on line 59
+[22-Feb-2023 06:00:01 America/New_York] PHP Notice:  Trying to access array offset on value of type null in /home/tritpfvn/fazalelectronics.workheist.com/views/product/products.php on line 75
+[22-Feb-2023 06:01:32 America/New_York] PHP Notice:  Trying to access array offset on value of type null in /home/tritpfvn/fazalelectronics.workheist.com/views/product/products.php on line 59
+[22-Feb-2023 06:01:32 America/New_York] PHP Notice:  Trying to access array offset on value of type null in /home/tritpfvn/fazalelectronics.workheist.com/views/product/products.php on line 75
+[22-Feb-2023 06:26:37 America/New_York] PHP Notice:  Undefined index: email in /home/tritpfvn/fazalelectronics.workheist.com/includes/header.php on line 34
+[22-Feb-2023 06:26:37 America/New_York] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/tritpfvn/fazalelectronics.workheist.com/includes/header.php:65) in /home/tritpfvn/fazalelectronics.workheist.com/views/product/sales.php on line 6
+[22-Feb-2023 06:26:41 America/New_York] PHP Notice:  Undefined index: email in /home/tritpfvn/fazalelectronics.workheist.com/includes/header.php on line 34
+[22-Feb-2023 07:17:42 America/New_York] PHP Notice:  Undefined index: email in /home/tritpfvn/fazalelectronics.workheist.com/includes/header.php on line 34
+[27-Feb-2023 06:24:15 America/New_York] PHP Notice:  Undefined index: email in /home/tritpfvn/fazalelectronics.workheist.com/includes/header.php on line 34

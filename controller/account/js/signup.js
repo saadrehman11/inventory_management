@@ -10,7 +10,7 @@ function signup(){
             console.log(dataResult);
             var res  = JSON.parse(dataResult)
             if(res.status_Code == 100){
-                window.location = (window.location.origin)+"/projects/admin_panels/inventory_management/views/"+"dashboard/dashboard.php";
+                window.location = (window.location.origin)+"/views/"+"account/login.php";
             }else if(res.status_Code == 400){
                 $('#msg').html('<p class="bg-danger text-white">Email is already registered.</p>');
             }
